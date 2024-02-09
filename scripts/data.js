@@ -1,4 +1,4 @@
-import {Circle, Dot, Line, StraightLine} from "./elements"
+import {Circle, Dot, Line, StraightLine} from "./sketchpad"
 
 const preferences = {
     color: 'rgb(21,101,192)',
@@ -8,7 +8,6 @@ const preferences = {
 export const dots = [new Dot(0, 0, [])]
 export const lines = []
 const jp = JSON.stringify(preferences)
-
 function select(x, y, type) {
     //TODO
     const result = []
