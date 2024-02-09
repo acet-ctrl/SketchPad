@@ -5,7 +5,9 @@ enum Types {
 }
 
 const preferences = {
-    defaultShowTag: false, color: 'rgb(21,101,192)'
+	color: 'rgb(21,101,192)',
+    showTag: false,
+	font: 'Latin Modern Math'
 }
 export const dots: Dot[] = [new Dot(0, 0, [])]
 export const lines: Line[] = []
