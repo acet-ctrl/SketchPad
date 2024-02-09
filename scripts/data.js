@@ -5,12 +5,13 @@ enum Types {
 }
 
 const preferences = {
-	color: 'rgb(21,101,192)',
+    color: 'rgb(21,101,192)',
     showTag: false,
-	font: 'Latin Modern Math'
+    font: 'Latin Modern Math'
 }
 export const dots: Dot[] = [new Dot(0, 0, [])]
 export const lines: Line[] = []
+const jp = JSON.stringify(preferences)
 
 function select(x, y, type: Types) {
     //TODO
