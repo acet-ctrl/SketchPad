@@ -61,11 +61,6 @@ aside {
 .reserved {
     position: absolute;
     bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-    height: calc(var(--card) / 2);
     opacity: 0;
     transition: 1s ease;
 }
