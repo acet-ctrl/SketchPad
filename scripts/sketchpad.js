@@ -28,7 +28,7 @@ export class Dot extends Graph {
     tagY = -10
     position = 0
 
-    constructor(x, y, parents,color=) {
+    constructor(x, y, parents) {
         super(parents)
         this.x = x
         this.y = y
