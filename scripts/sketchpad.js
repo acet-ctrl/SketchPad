@@ -1,4 +1,4 @@
-import {dots, lines} from "./data"
+import {dots, lines} from "./data.js"
 
 export class Graph {
     static draw
@@ -9,7 +9,7 @@ export class Graph {
     children = []
     hidden = false
     movable = true
-    color = 'rgb(21,101,192)'
+    color
 
     constructor(parents) {
         this.parents = parents
@@ -19,8 +19,8 @@ export class Graph {
 export class Dot extends Graph {
     x
     y
-    size = 4
-    filled = false
+    size
+    filled
     tag = ''
     font = '1.5pc Latin Modern Math'
     showTag
@@ -28,13 +28,13 @@ export class Dot extends Graph {
     tagY = -10
     position = 0
 
-    constructor(x, y, parents) {
+    constructor(x, y, parents,color=) {
         super(parents)
         this.x = x
         this.y = y
     }
 
-    static draw = (dot) => {
+    static draw = (dot, context) => {
         if (dot.hidden) {
             return
         }
@@ -82,6 +82,7 @@ export class Circle extends Line {
     c
     r
 }
+
 const canvas = document.getElementsByTagName('canvas')[0]
 export const context = canvas.getContext('2d')
 let width

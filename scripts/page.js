@@ -1,3 +1,5 @@
+import {Dot} from "./sketchpad";
+
 const hideButton = document.getElementById('hide')
 const showButton = document.getElementById('show')
 const sideBar = document.getElementsByTagName('aside')[0]
@@ -14,3 +16,6 @@ document.oncontextmenu = () => {
     return false
 }
 const moveTool=document.getElementById('move')
+Dot.draw=()=>{
+
+}
