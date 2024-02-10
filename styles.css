@@ -15,6 +15,7 @@ aside {
     flex-direction: column;
     transition: all 0.8s ease;
 }
+
 .open-sidebar {
     left: 0;
     opacity: 1;
