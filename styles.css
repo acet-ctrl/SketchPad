@@ -42,11 +42,10 @@ aside {
 }
 
 .tools {
-    z-index: 1;
     width: var(--card);
     height: var(--card);
+    position: absolute;
     margin: calc(0.5 * var(--interval));
-    position: relative;
     border-radius: var(--interval);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.8);
