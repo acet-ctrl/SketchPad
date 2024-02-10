@@ -33,11 +33,12 @@ aside {
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
     padding: calc(0.5 * var(--interval));
     background: rgba(240, 240, 240, 0.7);
-    overflow: auto;
 }
 
 .panel {
     flex: 1;
+    overflow-x: visible;
+    overflow-y: scroll;
 }
 
 .tools {
