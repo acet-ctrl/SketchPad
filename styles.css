@@ -41,7 +41,6 @@ aside {
     overflow-y: scroll;
 }
 
-
 .tools {
     width: var(--card);
     height: var(--card);
