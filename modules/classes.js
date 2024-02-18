@@ -1,4 +1,4 @@
-class Tools {
+class Tool {
     hotKey
     dependency
     result

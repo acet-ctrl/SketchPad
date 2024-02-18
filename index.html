@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>潘振邦的画板</title>
-    <link rel="icon" href="res/icon.svg">
+    <link rel="icon" href="resources/icon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <aside class="open-sidebar">
     <div class="toolbar panel">
         <div class="tools" id="move"></div>
+        <div class="tools" id="dot"></div>
+        <div class="tools" id="straight-line"></div>
+        <div class="tools" id="circle"></div>
     </div>
     <div class="toolbar indicators">
         <svg id="add" width="24" height="24">
@@ -29,8 +32,5 @@
 </div>
 <canvas id="canvas"></canvas>
 </body>
-<script type="module" src="scripts/data.js"></script>
-<script type="module" src="scripts/sketchpad.js"></script>
-<script type="module" src="scripts/tools.js"></script>
-<script type="module" src="scripts/page.js"></script>
+<script type="module" src="main.js"></script>
 </html>

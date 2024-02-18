@@ -1,14 +1,4 @@
-import {Circle, Dot, Line, StraightLine} from "./sketchpad"
-
-let preferences
-fetch('./tools.json').then((resolve) => {
-    resolve.json().then((json) => {
-        preferences = json
-    })
-})
-export const dots = [new Dot(0, 0, [])]
-export const lines = []
-const jp = JSON.stringify(preferences)
+import {Circle, Dot, Line, StraightLine} from "./sketchpad.js";
 
 function select(x, y, type) {
     //TODO

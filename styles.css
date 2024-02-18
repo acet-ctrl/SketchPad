@@ -32,13 +32,12 @@ aside {
     border-radius: calc(2 * var(--interval));
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
     padding: calc(0.5 * var(--interval));
-    background: rgba(240, 240, 240, 0.7);
+    background: rgba(240, 240, 240, 0.8);
 }
 
 .panel {
     flex: 1;
-    overflow-x: visible;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .tools {
@@ -47,9 +46,16 @@ aside {
     position: absolute;
     margin: calc(0.5 * var(--interval));
     border-radius: var(--interval);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 var(--interval) rgba(0, 0, 0, 0.08);
     background: rgba(255, 255, 255, 0.8);
     cursor: pointer;
+    transition: ease 0.2s;
+}
+
+.tools:hover {
+    box-shadow: 0 0 calc(0.2 * var(--interval)) rgba(0, 0, 0, 0.02);
+    background: rgba(245, 245, 245, 0.8);
+    transition: ease 0.2s;
 }
 
 .indicators {
@@ -85,6 +91,10 @@ svg {
 
 canvas {
     z-index: -1;
+}
+
+dialog {
+
 }
 
 @media (prefers-color-scheme: dark) {
