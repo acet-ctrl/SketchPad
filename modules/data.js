@@ -4,7 +4,8 @@ export let preferences
 export let tools
 export let diagram = {
     dots: [],
-    lines: []
+    lines: [],
+    circles: []
 }
 
 export async function initData() {

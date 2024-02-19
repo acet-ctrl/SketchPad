@@ -3,5 +3,6 @@
   "showTag": false,
   "font": "1.5pc Latin Modern Math",
   "size": 4,
-  "filled": false
+  "filled": false,
+  "width": 2
 }

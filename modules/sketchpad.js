@@ -1,13 +1,15 @@
 import {diagram, preferences} from "./data.js";
+import {selectElements} from "./widgets.js";
 
 export class Graph {
     parents
     children = []
     hidden = false
+    selected = false
     movable = true
     color
 
-    constructor(parents) {
+    constructor(...parents) {
         this.parents = parents
     }
 }
@@ -24,8 +26,8 @@ export class Dot extends Graph {
     tagY = -10
     position = 0
 
-    constructor(x, y, parents) {
-        super(parents)
+    constructor(x, y, ...parents) {
+        super(...parents)
         this.x = x
         this.y = y
         this.color = preferences.color
@@ -39,9 +41,9 @@ export class Dot extends Graph {
         if (this.hidden) {
             return
         }
-        context.strokeStyle = this.movable ? this.color : 'grey'
-        context.lineWidth = this.size / 4 + 1
-        context.fillStyle = this.filled ? this.color : 'white'
+        context.strokeStyle = this.movable ? this.color : 'gray'
+        context.lineWidth = this.size / 4 + 2
+        context.fillStyle = this.selected ? 'lightgrey' : this.filled ? this.color : 'white'
         context.beginPath()
         context.arc(mapX(this.x), mapY(this.y), this.size, 0, Math.PI * 2)
         context.closePath()
@@ -51,28 +53,36 @@ export class Dot extends Graph {
             context.font = this.font
             context.fillText(this.tag, mapX(this.x + this.tagX), mapY(this.y + this.tagY))
         }
+        if (this.selected) {
+            context.beginPath()
+            context.arc(mapX(this.x), mapY(this.y), this.size + context.lineWidth, 0, Math.PI * 2)
+            context.closePath()
+            context.strokeStyle = 'lightgrey'
+            context.lineWidth /= 2
+            context.stroke()
+        }
     }
 
-    distance(x, y) {
-        return mapR(Math.sqrt((this.x - x) ^ 2 + (this.y - y) ^ 2))
+    reposition(x, y) {
+
     }
 }
 
-export class Line extends Graph {
-
-}
-
-export class StraightLine extends Line {
+export class StraightLine extends Graph {
     a
     b
     c
+    type
+    width
 
-    constructor(dot0, dot1) {
-        super(dot0)
-    }
-
-    distance(x, y) {
-        return mapR(Math.abs(this.a * x + this.b * y + this.c) / Math.sqrt(this.a ^ 2 + this.b ^ 2))
+    constructor(dot0, dot1, type) {
+        super(dot0, dot1)
+        this.a = dot0.y - dot1.y
+        this.b = dot1.x - dot0.x
+        this.c = dot0.x * dot1.y - dot1.x * dot0.y
+        this.type = type
+        this.color = preferences.color
+        this.width = preferences.width
     }
 
     draw() {
@@ -80,7 +90,7 @@ export class StraightLine extends Line {
     }
 }
 
-export class Circle extends Line {
+export class Circle extends Graph {
     c
     r
 }
@@ -93,6 +103,7 @@ let ratio
 let originX = 0
 let originY = 0
 let scale = 1
+let selectList = []
 
 function mapX(x) {
     return originX + x * scale
@@ -147,6 +158,9 @@ export function draw() {
     for (const line of diagram.lines) {
         line.draw()
     }
+    for (const circle of diagram.circles) {
+        circle.draw()
+    }
     for (const dot of diagram.dots) {
         dot.draw()
     }
@@ -160,6 +174,34 @@ function save(x, y) {
     previousY = y
 }
 
+function moveCanvas(ev) {
+    save(ev.pageX, ev.pageY)
+    document.onmousemove = (ev) => {
+        translate(ev.pageX - previousX, ev.pageY - previousY)
+        save(ev.pageX, ev.pageY)
+        draw()
+    }
+}
+
+let operate = (ev) => {
+}
+export function struct(tool) {
+    if (tool === 'move') {
+        operate = (ev) => {
+            selectList = []// selectElements(mapRX(ev.pageX), mapRY(ev.pageY))
+            if (selectList.length === 0) {
+                moveCanvas(ev)
+            } else {
+                const selected = selectList[0]
+                document.onmousemove = (ev) => {
+                    selected.reposition(mapRX(ev.pageX), mapRY(ev.pageY))
+                }
+            }
+        }
+    } else if (tool === 'select') {
+
+    }
+}
 export function initSketchPad() {
     window.onload = window.onresize = () => {
         width = window.innerWidth
@@ -174,13 +216,9 @@ export function initSketchPad() {
     }
     canvas.onmousedown = (ev) => {
         if (ev.buttons === 2) {
-            save(ev.offsetX, ev.offsetY)
-            document.onmousemove = (ev) => {
-                ev.movementX
-                translate(ev.offsetX - previousX, ev.offsetY - previousY)
-                save(ev.offsetX, ev.offsetY)
-                draw()
-            }
+            moveCanvas(ev)
+        } else if (ev.buttons === 1) {
+            operate(ev)
         }
     }
     document.onmouseup = () => {
@@ -198,6 +236,6 @@ export function initSketchPad() {
 let wanted
 canvas.onclick = (ev) => {
     if (ev.buttons === 1) {
-        select(ev.offsetX, ev.offsetY, wanted)
+        selectElements(ev.offsetX, ev.offsetY, wanted)
     }
 }

@@ -1,11 +1,9 @@
 class Tool {
-    hotKey
-    dependency
-    result
+    id
+    draw
 
-    constructor(hotKey, dependency, result) {
-        this.hotKey = hotKey
-        this.dependency = dependency
-        this.result = result
+    constructor(id, draw) {
+        this.id = id
+        this.draw = draw
     }
 }

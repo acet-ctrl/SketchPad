@@ -26,13 +26,13 @@ aside {
 }
 
 .toolbar {
-    width: calc(var(--interval) + var(--card));
+    width: calc(2 * var(--interval) + var(--card));
     margin: calc(var(--interval) / 2);
     border: none;
     border-radius: calc(2 * var(--interval));
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
-    padding: calc(0.5 * var(--interval));
-    background: rgba(240, 240, 240, 0.8);
+    background: rgba(240, 240, 240, 0.5);
+    backdrop-filter: blur(6px);
 }
 
 .panel {
@@ -40,53 +40,65 @@ aside {
     overflow-y: auto;
 }
 
-.tools {
+.indicators {
+    height: calc(3 * var(--interval) + 2 * var(--card));
+}
+
+.button, .tool {
     width: var(--card);
     height: var(--card);
-    position: absolute;
-    margin: calc(0.5 * var(--interval));
+    margin: var(--interval);
     border-radius: var(--interval);
     box-shadow: 0 0 var(--interval) rgba(0, 0, 0, 0.08);
     background: rgba(255, 255, 255, 0.8);
     cursor: pointer;
-    transition: ease 0.2s;
-}
-
-.tools:hover {
-    box-shadow: 0 0 calc(0.2 * var(--interval)) rgba(0, 0, 0, 0.02);
-    background: rgba(245, 245, 245, 0.8);
-    transition: ease 0.2s;
-}
-
-.indicators {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     justify-items: center;
     align-items: center;
-    height: calc(var(--card) / 2);
+    transition: ease 0.2s;
+}
+
+.button:hover, .tool:hover {
+    box-shadow: 0 0 calc(0.2 * var(--interval)) rgba(0, 0, 0, 0.02);
+    transition: ease 0.2s;
+}
+
+.button:active, .tool:active {
+    background: rgba(250, 250, 250, 0.8);
+    transition: none;
+}
+
+.selected {
+    background: rgba(200, 216, 255, 0.8);
+    transition: ease 0.2s;
+
+    svg {
+        fill: rgb(64, 120, 255);
+        transition: ease 0.2s;
+    }
 }
 
 .reserved {
     position: absolute;
-    bottom: 0;
-    opacity: 0;
+    bottom: calc(0.5 * var(--interval));
     transition: 1s ease;
 }
 
 .open-reserved {
-    left: calc(-0.5 * var(--card) - 1.5 * var(--interval));
+    left: calc(0.5 * var(--interval));
     opacity: 1;
 }
 
 .close-reserved {
-    left: calc(-1 * var(--card) - 3 * var(--interval));
+    left: calc(-1 * var(--card));
     opacity: 0;
 }
 
 svg {
     width: calc(var(--card) / 2);
     height: calc(var(--card) / 2);
-    cursor: pointer;
+    transition: ease 0.2s;
 }
 
 canvas {
@@ -99,6 +111,6 @@ dialog {
 
 @media (prefers-color-scheme: dark) {
     svg {
-        fill: #fff;
+        color: white;
     }
 }

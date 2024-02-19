@@ -1,5 +1,9 @@
+import {struct} from "./sketchpad.js";
+
 const sideBar = document.getElementsByTagName('aside')[0]
 const reservedBar = document.getElementsByClassName('reserved')[0]
+const tools = document.getElementsByClassName('tool')
+let currentTool = tools[0]
 
 export function initPage() {
     document.getElementById('hide').onclick = () => {
@@ -10,7 +14,12 @@ export function initPage() {
         sideBar.classList.replace('close-sidebar', 'open-sidebar')
         reservedBar.classList.replace('open-reserved', 'close-reserved')
     }
-    document.oncontextmenu = () => {
-        return false
+    for (const tool of tools) {
+        tool.onclick = () => {
+            currentTool.classList.remove('selected')
+            tool.classList.add('selected')
+            currentTool = tool
+            struct(tool.id)
+        }
     }
 }
