@@ -111,6 +111,6 @@ dialog {
 
 @media (prefers-color-scheme: dark) {
     svg {
-        color: white;
+        fill: white;
     }
 }

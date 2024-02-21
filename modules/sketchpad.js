@@ -63,8 +63,14 @@ export class Dot extends Graph {
         }
     }
 
-    reposition(x, y) {
-
+    reposition(deltaX, deltaY) {
+        if (!this.movable) {
+            return
+        }
+        if (this.parents.length === 0) {
+            this.x += deltaX
+            this.y += deltaY
+        }
     }
 }
 
@@ -88,11 +94,27 @@ export class StraightLine extends Graph {
     draw() {
 
     }
+
+    by(x, y) {
+        return this.a * x + this.b * y + this.c > 0
+    }
 }
 
 export class Circle extends Graph {
-    c
+    x
+    y
     r
+
+    constructor(center, dot) {
+        super(center, dot)
+        this.x = center.x
+        this.y = center.y
+        this.r = distance(this.x, this.y, dot.x, dot.y)
+    }
+
+    in(x, y) {
+        return distance(this.x, this.y, x, y) < this.r
+    }
 }
 
 const canvas = document.getElementsByTagName('canvas')[0]
@@ -166,6 +188,10 @@ export function draw() {
     }
 }
 
+function distance(x1, y1, x2, y2) {
+    return Math.sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
+}
+
 let previousX
 let previousY
 
@@ -185,23 +211,31 @@ function moveCanvas(ev) {
 
 let operate = (ev) => {
 }
+
 export function struct(tool) {
     if (tool === 'move') {
         operate = (ev) => {
-            selectList = []// selectElements(mapRX(ev.pageX), mapRY(ev.pageY))
+            //todo 线的移动
+            selectList = selectElements(mapRX(ev.pageX - 4), mapRY(ev.pageY - 4), mapRX(ev.pageX + 4), mapRY(ev.pageY + 4)).dots// selectElements(mapRX(ev.pageX), mapRY(ev.pageY))
             if (selectList.length === 0) {
                 moveCanvas(ev)
             } else {
                 const selected = selectList[0]
+                save(ev.pageX, ev.pageY)
                 document.onmousemove = (ev) => {
-                    selected.reposition(mapRX(ev.pageX), mapRY(ev.pageY))
+                    selected.reposition(mapR(ev.pageX - previousX), mapR(ev.pageY - previousY))
+                    save(ev.pageX, ev.pageY)
+                    draw()
                 }
             }
         }
     } else if (tool === 'select') {
+        operate = (ev) => {
 
+        }
     }
 }
+
 export function initSketchPad() {
     window.onload = window.onresize = () => {
         width = window.innerWidth
