@@ -209,8 +209,7 @@ function moveCanvas(ev) {
     }
 }
 
-let operate = (ev) => {
-}
+let operate
 
 export function struct(tool) {
     if (tool === 'move') {
