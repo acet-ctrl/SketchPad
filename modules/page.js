@@ -1,9 +1,9 @@
-import {struct} from "./sketchpad.js";
+import {struct} from "./draftarea.js";
 
 const sideBar = document.getElementsByTagName('aside')[0]
 const reservedBar = document.getElementsByClassName('reserved')[0]
 const tools = document.getElementsByClassName('tool')
-let currentTool = tools[0]
+let currentTool
 
 export function initPage() {
     document.getElementById('hide').onclick = () => {
@@ -16,10 +16,11 @@ export function initPage() {
     }
     for (const tool of tools) {
         tool.onclick = () => {
-            currentTool.classList.remove('selected')
+            currentTool?.classList.remove('selected')
             tool.classList.add('selected')
             currentTool = tool
             struct(tool.id)
         }
     }
+    tools[0].click()
 }

@@ -1,5 +1,5 @@
-import {Circle, Dot, StraightLine} from "./sketchpad.js";
-import {diagram} from "./data.js";
+import {Circle, Dot, StraightLine} from "./draftarea.js";
+import {diagram} from "./geoobj.js";
 
 export function selectElements(x1, y1, x2, y2) {
     const result = {
